@@ -48,15 +48,9 @@ with open(inFile, 'r') as file:
             data = []
             fileNumber += 1
     else:
-        with open(f'{outdir}{inFileName}_chunk_{fileNumber}', 'w') as outFile:
+        with open(f'{outdir}{inFileName}_chunk_{fileNumber}.fasta', 'w') as outFile:
             for chunk in data:
                 for _ in chunk:
                     outFile.write(_+'\t')
                 else:
                     outFile.write('\n')
-
-
-
-
-
-
