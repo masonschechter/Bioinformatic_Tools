@@ -39,7 +39,7 @@ with open(inFile, 'r') as file:
         else:
             data.append(fastaEntry)
         if len(data) == 100000:
-            with open(f'{outdir}{inFileName}_chunk_{fileNumber}', 'w') as outFile:
+            with open(f'{outdir}{inFileName}_chunk_{fileNumber}.fasta', 'w') as outFile:
                 for chunk in data:
                     for _ in chunk:
                         outFile.write(_+'\t')
