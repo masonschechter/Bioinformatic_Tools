@@ -37,7 +37,7 @@ def parseFile(fileName):
 if __name__ == '__main__':
     createTable()
     fastaInserted = 0
-    
+
     physicalCores = int(mp.cpu_count()/2)
     p = mp.Pool(physicalCores)
     multiResults = p.imap(parseFile, fileNames)
@@ -45,7 +45,7 @@ if __name__ == '__main__':
     for result in multiResults:
         if not len(result) % 100000:
             db = con.cursor()
-            db.executemany("INSERT INTO TestTable (UniparcID, Status, Sequence) VALUES (?,?,?)", result)
+            db.executemany("INSERT INTO Uniparc (UniparcID, Status, Sequence) VALUES (?,?,?)", result)
             con.commit()
             fastaInserted += 100000
             print(f'Inserted {fastaInserted} entries into db')
