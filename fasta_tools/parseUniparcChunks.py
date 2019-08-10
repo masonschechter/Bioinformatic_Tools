@@ -49,3 +49,4 @@ if __name__ == '__main__':
             con.commit()
             fastaInserted += 100000
             print(f'Inserted {fastaInserted} entries into db')
+    print(f"Finished parsing chunks {start} through {stop}\n")

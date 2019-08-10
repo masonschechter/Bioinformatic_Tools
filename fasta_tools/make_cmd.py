@@ -1,3 +1,5 @@
+'''cat the output file into the .slurm'''
+
 numFiles = 2819
 batchSize = 24
 remainder = numFiles % batchSize
