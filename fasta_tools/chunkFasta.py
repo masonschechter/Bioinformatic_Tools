@@ -12,7 +12,7 @@ lineStarts = []
 chunkSizes = []
 data = []
 
-with open(inFile, 'r') as file:
+with open(inFile, 'r', encoding='utf-8') as file:
     currentLine = 0
     for line in file:
         if line.startswith('>'):
