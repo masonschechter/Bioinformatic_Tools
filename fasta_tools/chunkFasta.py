@@ -29,7 +29,7 @@ for i in range(len(lineStarts)):
 print(f'Found {len(chunkSizes)} fasta chunks!')
 
 fileNumber = 1
-outdir = '/scratch/06538/mschecht/FastaChunking/uniprot_chunks/'
+outdir = '/scratch/06538/mschecht/FastaChunking/uniprot-trembl_chunks/'
 
 with open(inFile, 'r') as file:
     for chunkSize in chunkSizes:
