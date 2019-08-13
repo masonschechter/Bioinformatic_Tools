@@ -43,10 +43,9 @@ if __name__ == '__main__':
     multiResults = p.imap(parseFile, fileNames)
 
     for result in multiResults:
-        if not len(result) % 100000:
-            db = con.cursor()
-            db.executemany("INSERT INTO Uniparc (UniparcID, Status, Sequence) VALUES (?,?,?)", result)
-            con.commit()
-            fastaInserted += 100000
-            print(f'Inserted {fastaInserted} entries into db')
+        db = con.cursor()
+        db.executemany("INSERT INTO Uniparc (UniparcID, Status, Sequence) VALUES (?,?,?)", result)
+        con.commit()
+        fastaInserted += len(result)
+        print(f'Inserted {fastaInserted} entries into db')
     print(f"Finished parsing chunks {start} through {stop}\n")

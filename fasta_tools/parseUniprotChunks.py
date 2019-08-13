@@ -9,7 +9,7 @@ con = sqlite3.connect('ProteinSequences.db')
 
 start = int(sys.argv[1])
 stop = int(sys.argv[2])
-fileBase = 'uniparc_sprot_chunk_'
+fileBase = 'uniprot_sprot_chunk_'
 fileNames = []
 
 annotationRegex = re.compile('(?<=\ )(.*)(?=\ OS=)')
@@ -70,15 +70,12 @@ if __name__ == '__main__':
     multiResults = p.imap(parseFile, fileNames)
 
     for result in multiResults:
-        if not len(result) % 100000:
-            db = con.cursor()
-            db.executemany('''INSERT INTO UniprotSP 
-                (UniprotID, Source, EntryName, Annotation, Organism, OrganismID, GeneName, ProteinExistence, SequenceVersion, Sequence) 
-                VALUES (?,?,?)''', result)
-            con.commit()
-            fastaInserted += 100000
-            print(f'Inserted {fastaInserted} entries into db')
-        else:
-            print(f"we dun goofed.")
+        db = con.cursor()
+        db.executemany('''INSERT INTO UniprotSP 
+            (UniprotID, Source, EntryName, Annotation, Organism, OrganismID, GeneName, ProteinExistence, SequenceVersion, Sequence) 
+            VALUES (?,?,?,?,?,?,?,?,?,?)''', result)
+        con.commit()
+        fastaInserted += len(result)
+        print(f'Inserted {fastaInserted} entries into db')
     print(f"Finished parsing chunks {start} through {stop}\n")
 
