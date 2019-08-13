@@ -11,6 +11,7 @@ start = int(sys.argv[1])
 stop = int(sys.argv[2])
 fileBase = 'uniprot_sprot_chunk_'
 fileNames = []
+dataDir = '/scratch/06538/mschecht/FastaChunking/uniprot-sprot_chunks/'
 
 annotationRegex = re.compile('(?<=\ )(.*)(?=\ OS=)')
 organismRegex = re.compile('(?<=OS=)(.*)(?=\ OX=)')
@@ -20,7 +21,7 @@ proteinExistenceRegex = re.compile('(?<=PE=)(\d+)')
 sequenceVersionRegex = re.compile('(?<=SV=)(\d+)')
 
 for i in range(start,stop+1):
-    fileNames.append(f'{fileBase}{i}.fasta')
+    fileNames.append(f'{dataDir}{fileBase}{i}.fasta')
 
 def createTable():
     db = con.cursor()
