@@ -5,7 +5,7 @@ import sqlite3
 import sys
 import re
 
-con = sqlite3.connect('ProteinSequences.db')
+con = sqlite3.connect('/scratch/06538/mschecht/Databases/ProteinSequences.db')
 
 start = int(sys.argv[1])
 stop = int(sys.argv[2])

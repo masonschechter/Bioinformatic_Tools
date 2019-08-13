@@ -6,7 +6,7 @@ import sqlite3
 import sys
 
 statusDict = {"active":1, "inactive":0}
-con = sqlite3.connect('ProteinSequences.db')
+con = sqlite3.connect('/scratch/06538/mschecht/Databases/ProteinSequences.db')
 
 start = int(sys.argv[1])
 stop = int(sys.argv[2])
@@ -28,9 +28,7 @@ def parseFile(fileName):
         for line in file:
             uniparcID = line.split(' ')[0][1:]
             status = statusDict[line.split('\t')[0].split(' ')[1].split('=')[1]]
-            sequence = ''
-            for _ in line.split('\t')[1:-1]:
-                sequence += _
+            sequence = ''.join(line.split('\t')[1:-1])
             data.append((uniparcID, status, sequence))
     return data
 
