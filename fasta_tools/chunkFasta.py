@@ -3,6 +3,7 @@ import sys
 
 inFile = sys.argv[1]
 inFileName = inFile.split('/')[-1].split('.')[0]
+outdir = '/scratch/06538/mschecht/FastaChunking/uniprot-trembl_chunks/'
 
 result = subprocess.Popen(f'wc -l {inFile}', stdout=subprocess.PIPE, shell=True).communicate()
 lineCount = int(result[0].decode('utf-8').split(' ')[0])
@@ -29,7 +30,6 @@ for i in range(len(lineStarts)):
 print(f'Found {len(chunkSizes)} fasta chunks!')
 
 fileNumber = 1
-outdir = '/scratch/06538/mschecht/FastaChunking/uniprot-trembl_chunks/'
 
 with open(inFile, 'r') as file:
     for chunkSize in chunkSizes:

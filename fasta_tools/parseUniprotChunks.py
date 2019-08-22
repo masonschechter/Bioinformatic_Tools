@@ -12,6 +12,7 @@ stop = int(sys.argv[2])
 fileBase = 'uniprot_sprot_chunk_'
 fileNames = []
 dataDir = '/scratch/06538/mschecht/FastaChunking/uniprot-sprot_chunks/'
+tableName = 'UniprotSP'
 
 annotationRegex = re.compile('(?<=\ )(.*)(?=\ OS=)')
 organismRegex = re.compile('(?<=OS=)(.*)(?=\ OX=)')
@@ -25,7 +26,7 @@ for i in range(start,stop+1):
 
 def createTable():
     db = con.cursor()
-    db.execute('''CREATE TABLE IF NOT EXISTS UniprotSP (
+    db.execute(f'''CREATE TABLE IF NOT EXISTS {tableName} (
                 UniprotID TEXT PRIMARY KEY, 
                 Source TEXT, 
                 EntryName TEXT, 
@@ -72,7 +73,7 @@ if __name__ == '__main__':
 
     for result in multiResults:
         db = con.cursor()
-        db.executemany('''INSERT INTO UniprotSP 
+        db.executemany(f'''INSERT INTO {tableName} 
             (UniprotID, Source, EntryName, Annotation, Organism, OrganismID, GeneName, ProteinExistence, SequenceVersion, Sequence) 
             VALUES (?,?,?,?,?,?,?,?,?,?)''', result)
         con.commit()

@@ -5,11 +5,11 @@ import multiprocessing as mp
 import sqlite3
 import sys
 
-statusDict = {"active":1, "inactive":0}
-con = sqlite3.connect('/scratch/06538/mschecht/Databases/ProteinSequences.db')
-
 start = int(sys.argv[1])
 stop = int(sys.argv[2])
+statusDict = {"active":1, "inactive":0}
+con = sqlite3.connect('/scratch/06538/mschecht/Databases/ProteinSequences.db')
+tableName = 'Uniparc'
 fileBase = 'uniparc_active_chunk_'
 fileNames = []
 
@@ -19,7 +19,7 @@ for i in range(start,stop+1):
 
 def createTable():
     db = con.cursor()
-    db.execute("CREATE TABLE IF NOT EXISTS Uniparc (UniparcID, Status, Sequence)")
+    db.execute(f"CREATE TABLE IF NOT EXISTS {tableName} (UniparcID, Status, Sequence)")
 
 
 def parseFile(fileName):
@@ -42,7 +42,7 @@ if __name__ == '__main__':
 
     for result in multiResults:
         db = con.cursor()
-        db.executemany("INSERT INTO Uniparc (UniparcID, Status, Sequence) VALUES (?,?,?)", result)
+        db.executemany(f"INSERT INTO {tableName} (UniparcID, Status, Sequence) VALUES (?,?,?)", result)
         con.commit()
         fastaInserted += len(result)
         print(f'Inserted {fastaInserted} entries into db')
