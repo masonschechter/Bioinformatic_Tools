@@ -41,6 +41,8 @@ def fastaRegex(header):
     commonTaxonID = re.search(commonTaxonIDRegex, header)[0] if re.search(commonTaxonIDRegex, header) else 'NULL'
     representativeID = re.search(representativeIDRegex, header)[0] if re.search(representativeIDRegex, header) else 'NULL'
 
+    return (unirefID, annotation, clusterSize, commonTaxon, commonTaxonID, representativeID)
+
 def parseFile(fileName):
     data = []
     with open(fileName) as file:
