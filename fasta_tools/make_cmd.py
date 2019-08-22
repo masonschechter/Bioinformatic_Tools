@@ -1,13 +1,13 @@
 '''cat the output file into the .slurm'''
 
-numFiles = 2819
+numFiles = 1994
 batchSize = 24
 remainder = numFiles % batchSize
 highestMultiple = (numFiles - remainder)//batchSize
 
-with open('parseUniparc.cmd', 'w') as file:
+with open('/scratch/06538/mschecht/jobs/parseUniref100.cmd', 'w') as file:
     for i in range(highestMultiple):
         start = i*batchSize+1
         stop = (i+1)*batchSize
-        file.write(f"python3 parseUniparcChunks.py {start} {stop}\n")
-    file.write(f"python3 parseUniparcChunks.py {highestMultiple*batchSize+1} {numFiles}\n")
+        file.write(f"python3 /home1/06538/mschecht/repos/bioinformatic_tools/fasta_tools/parseUnirefChunks.py {start} {stop}\n")
+    file.write(f"python3 /home1/06538/mschecht/repos/bioinformatic_tools/fasta_tools/parseUnirefChunks.py {highestMultiple*batchSize+1} {numFiles}\n")

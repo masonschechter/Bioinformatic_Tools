@@ -15,7 +15,7 @@ stop = int(sys.argv[2])
 
 annotationRegex = re.compile('(?<=\ )(.*)(?=\ n=)')
 clusterSizeRegex = re.compile('(?<=n=)(\d+)(?=\ Tax=)')
-commonTaxonRegex = re.compile('(?<=Tax=)(.*)(?=\ TaxID=')
+commonTaxonRegex = re.compile('(?<=Tax=)(.*)(?=\ TaxID=)')
 commonTaxonIDRegex = re.compile('(?<=TaxID=)(\d+)(?=\ RepID=)')
 representativeIDRegex = re.compile('(?<=RepID=)(.*)')
 
@@ -25,12 +25,12 @@ for i in range(start,stop+1):
 def createTable():
     db = con.cursor()
     db.execute(f'''CREATE TABLE IF NOT EXISTS {tableName} (
-                UnirefID TEXT PRIMARY KEY,  
-                Annotation TEXT, 
-                ClusterSize TEXT, 
-                CommonTaxon TEXT, 
-                CommonTaxonID TEXT, 
-                RepresentativeID TEXT, 
+                UnirefID TEXT PRIMARY KEY,
+                Annotation TEXT,
+                ClusterSize TEXT,
+                CommonTaxon TEXT,
+                CommonTaxonID TEXT,
+                RepresentativeID TEXT,
                 Sequence TEXT)''')
 
 def fastaRegex(header):
@@ -62,8 +62,8 @@ if __name__ == '__main__':
 
     for result in multiResults:
         db = con.cursor()
-        db.executemany(f'''INSERT INTO {tableName} 
-            (UnirefID, Annotation, ClusterSize, CommonTaxon, CommonTaxonID, RepresentativeID, Sequence) 
+        db.executemany(f'''INSERT INTO {tableName}
+            (UnirefID, Annotation, ClusterSize, CommonTaxon, CommonTaxonID, RepresentativeID, Sequence)
             VALUES (?,?,?,?,?,?,?)''', result)
         con.commit()
         fastaInserted += len(result)
